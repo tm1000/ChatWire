@@ -29,6 +29,7 @@ func DoLogCW(format string, args ...interface{}) {
 
 	date := fmt.Sprintf("%2v:%2v.%2v", ctime.Hour(), ctime.Minute(), ctime.Second())
 	buf := fmt.Sprintf("%v: %15v:%5v: %v\n", date, filepath.Base(filename), line, text)
+	fmt.Print(buf)
 	_, err := glob.CWLogDesc.WriteString(buf)
 	if err != nil {
 		fmt.Println("DoLog: WriteString failure")
@@ -55,6 +56,7 @@ func DoLogAudit(format string, args ...interface{}) {
 
 	date := fmt.Sprintf("%2v:%2v.%2v", ctime.Hour(), ctime.Minute(), ctime.Second())
 	buf := fmt.Sprintf("%v: %15v:%5v: %v\n", date, filepath.Base(filename), line, text)
+	fmt.Print(buf)
 	_, err := glob.AuditLogDesc.WriteString(buf)
 	if err != nil {
 		fmt.Println("DoLogAudit: WriteString failure")
@@ -80,6 +82,7 @@ func DoLogGame(format string, args ...interface{}) {
 
 	date := fmt.Sprintf("%2v:%2v.%2v", ctime.Hour(), ctime.Minute(), ctime.Second())
 	buf := fmt.Sprintf("%v: %v\n", date, text)
+	fmt.Print(buf)
 	_, err := glob.GameLogDesc.WriteString(buf)
 	if err != nil {
 		fmt.Println("DoLogGame: WriteString failure")
