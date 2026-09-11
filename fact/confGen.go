@@ -21,7 +21,7 @@ func GenerateFactorioConfig() bool {
 	finalPath := cfg.GetFactorioFolder() +
 		constants.ServSettingsName
 
-	servName := "~[" + cfg.Global.GroupName + "] " + strings.ToUpper(cfg.Local.Callsign) + "-" + cfg.Local.Name
+	servName := cfg.GetServerName()
 
 	/* Setup some defaults */
 	heartbeats := 60

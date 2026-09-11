@@ -1,6 +1,7 @@
 {
 	"Callsign": "a",
 	"Name": "RailWorld",
+	"ServerName": "",
 	"Port": 10000,
 	"RCONPass": "automatically randomized each time we launch factorio",
 	"LastSaveBackup": 1,
@@ -16,8 +17,9 @@
 		"Heartbeats": 60
 	},
 	"Channel": {
-		"Comment": "ChannelID, if blank will attempt to create a new channel.",
-		"ChatChannel": ""
+		"Comment": "ChannelID, if blank will attempt to create a new channel. ChannelName overrides the displayed callsign-name if set.",
+		"ChatChannel": "",
+		"ChannelName": ""
 	},
 	"Options": {
 		"LocalDescription": "Adds to this specific server description",

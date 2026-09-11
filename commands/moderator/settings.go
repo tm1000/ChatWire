@@ -161,6 +161,26 @@ var SettingList = []SettingListData{
 		FactUpdateCommand: "/cname",
 	},
 	{
+		Name:      "channel-name",
+		ShortDesc: "Discord Channel Name",
+		Desc:      "Overrides the displayed Discord channel name. Leave blank to use callsign-name.",
+		Type:      TYPE_STRING,
+
+		MaxStrLen: 64,
+
+		SData: &cfg.Local.Channel.ChannelName,
+	},
+	{
+		Name:      "server-name",
+		ShortDesc: "Factorio Server Name",
+		Desc:      "Overrides the Factorio server browser name. Leave blank to use [group] callsign-name.",
+		Type:      TYPE_STRING,
+
+		MaxStrLen: 100,
+
+		SData: &cfg.Local.ServerName,
+	},
+	{
 		Name:      "port",
 		ShortDesc: "Port Number",
 		Desc:      "UDP port the server will run on.",

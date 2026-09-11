@@ -117,6 +117,7 @@ type globalOptions struct {
 type local struct {
 	Callsign       string `form:"RO"`
 	Name           string
+	ServerName     string `web:"Custom Factorio Server Name"`
 	Port           int    `form:"RO"`
 	RCONPass       string `json:"-"`
 	LastSaveBackup int    `form:"RO" web:"Last Backup Slot"`
@@ -150,6 +151,7 @@ type settings struct {
 type channel struct {
 	Comment     string `form:"-"`
 	ChatChannel string `web:"Channel ID"`
+	ChannelName string `web:"Custom Channel Name"`
 }
 
 // ResetInterval defines the time duration between automatic map resets.

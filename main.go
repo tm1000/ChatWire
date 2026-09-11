@@ -262,7 +262,7 @@ func botReady(s *discordgo.Session, r *discordgo.Ready) {
 
 	if cfg.Local.Channel.ChatChannel == "" || cfg.Local.Channel.ChatChannel == "MY DISCORD CHANNEL ID" {
 		cwlog.DoLogCW("No chat channel set, attempting to creating one.")
-		chname := fmt.Sprintf("%v-%v", cfg.Local.Callsign, cfg.Local.Name)
+		chname := cfg.GetChannelName()
 		channelid, err := s.GuildChannelCreate(cfg.Global.Discord.Guild, chname, discordgo.ChannelTypeGuildText)
 		if err != nil {
 			cwlog.DoLogCW("Couldn't create chat channel: %v", err)

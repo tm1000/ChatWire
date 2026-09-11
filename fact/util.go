@@ -625,9 +625,9 @@ func UpdateChannelName() {
 	}
 
 	if nump == 0 {
-		newchname = fmt.Sprintf("%v%v", icon, cfg.Local.Callsign+"-"+cfg.Local.Name)
+		newchname = fmt.Sprintf("%v%v", icon, cfg.GetChannelName())
 	} else {
-		newchname = fmt.Sprintf("%v%v%v", nump, icon, cfg.Local.Callsign+"-"+cfg.Local.Name)
+		newchname = fmt.Sprintf("%v%v%v", nump, icon, cfg.GetChannelName())
 	}
 
 	disc.UpdateChannelLock.Lock()

@@ -32,12 +32,30 @@ func GetGameLogURL() string {
 		strings.TrimPrefix(glob.GameLogName, "log/"))
 }
 
+// GetChannelName returns the display name used for the Discord channel —
+// Channel.ChannelName if set, otherwise the callsign+server name.
+func GetChannelName() string {
+	if Local.Channel.ChannelName != "" {
+		return Local.Channel.ChannelName
+	}
+	return Local.Callsign + "-" + Local.Name
+}
+
+// GetServerName returns the name shown in the Factorio server browser —
+// Local.ServerName if set, otherwise the group+callsign+server name.
+func GetServerName() string {
+	if Local.ServerName != "" {
+		return Local.ServerName
+	}
+	return "~[" + Global.GroupName + "] " + strings.ToUpper(Local.Callsign) + "-" + Local.Name
+}
+
 // WriteLCfg writes the local configuration to disk.
 // It returns true on success.
 func WriteLCfg() bool {
 	finalPath := constants.CWLocalConfig
 
-	Local.Channel.Comment = "ChannelID, if blank will attempt to create a new channel."
+	Local.Channel.Comment = "ChannelID, if blank will attempt to create a new channel. ChannelName overrides the displayed callsign-name if set."
 
 	if err := util.WriteJSONAtomic(finalPath, Local, 0644); err != nil {
 		cwlog.DoLogCW("WriteLCfg: " + err.Error())
