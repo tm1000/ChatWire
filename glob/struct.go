@@ -90,10 +90,9 @@ type CommandData struct {
 	ModeratorOnly bool
 	AdminOnly     bool
 
-	PrimaryOnly bool
-	Global      bool
-	Disabled    bool
-	AppCmd      AppCmdData
+	Global   bool
+	Disabled bool
+	AppCmd   AppCmdData
 }
 
 // OptionData defines a single option for a command.

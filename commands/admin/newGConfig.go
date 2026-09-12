@@ -21,6 +21,20 @@ func GConfigServer(cmd *glob.CommandData, i *discordgo.InteractionCreate) {
 	a := i.ApplicationCommandData()
 	buf := ""
 
+	/* Lock the shared global-config file for the whole read-modify-write,
+	   so another instance can't write in between our refresh and our
+	   save and have its change silently dropped. */
+	unlock, err := cfg.LockGCfg()
+	if err != nil {
+		disc.InteractionEphemeralResponse(i, "Error:", "Unable to lock cw-global, check file permissions.")
+		return
+	}
+	defer unlock()
+
+	/* Refresh from disk before applying, in case another instance
+	   changed something since we last read. */
+	cfg.ReadGCfg()
+
 	/* Check all values, Discord limits could be bypassed */
 	for _, o := range a.Options {
 		for _, co := range moderator.GSettingList {

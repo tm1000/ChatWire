@@ -110,14 +110,6 @@ func handlePlayerRegister(input *handleData) bool {
 					discid := disc.GetDiscordIDFromFactorioName(pname)
 					factname := disc.GetFactorioNameFromDiscordID(pid)
 
-					if !strings.EqualFold(cfg.Global.PrimaryServer, cfg.Local.Callsign) {
-						/* Some people just can't be bothered to read two short lines of text. */
-						fact.LogCMS(cfg.Global.Discord.ReportChannel, fmt.Sprintf("Factorio player '%s', tried to register... but can't read the directions.", pname))
-						fact.FactWhisper(pname, "[SYSTEM] This is not the correct server for entering registration codes! You need to connect to %v-%v to use that command. Please read the directions more carefully...",
-							cfg.Global.GroupName, cfg.Global.PrimaryServer)
-						return true
-					}
-
 					if strings.EqualFold(discid, pid) && strings.EqualFold(factname, pname) {
 						fact.LogCMS(cfg.Global.Discord.ReportChannel, fmt.Sprintf("Factorio player '%s', wants to register a few times... just to be sure.", pname))
 						fact.FactWhisper(pname, "[SYSTEM] This Factorio user, and discord user are already connected! You do not need to re-register...")

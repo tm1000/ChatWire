@@ -97,7 +97,7 @@ func userCommands() []glob.CommandData {
 			Description: "Get a discord role, get access to commands.",
 			Type:        discordgo.ChatApplicationCommand,
 		},
-			Function: user.Register, PrimaryOnly: true},
+			Function: user.Register},
 		{AppCmd: glob.AppCmdData{
 			Name:        "whois",
 			Description: "Get info about <player>",
@@ -111,13 +111,13 @@ func userCommands() []glob.CommandData {
 				},
 			},
 		},
-			Function: user.Whois, PrimaryOnly: true},
+			Function: user.Whois},
 		{AppCmd: glob.AppCmdData{
 			Name:        "scoreboard",
 			Description: "Top 40 players",
 			Type:        discordgo.ChatApplicationCommand,
 		},
-			Function: user.Scoreboard, PrimaryOnly: true},
+			Function: user.Scoreboard},
 		/* PLAYER COMMANDS -------------------- */
 		{AppCmd: glob.AppCmdData{
 			Name:        "list-mods",

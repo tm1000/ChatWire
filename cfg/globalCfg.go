@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"golang.org/x/sys/unix"
+
 	"ChatWire/constants"
 	"ChatWire/cwlog"
 	"ChatWire/glob"
@@ -181,6 +183,39 @@ func ReadGCfg() bool {
 func createGCfg() global {
 	newcfg := global{}
 	return newcfg
+}
+
+// LockGCfg acquires an exclusive, cross-process lock on the global
+// configuration file, so multiple ChatWire instances sharing the same
+// cw-global-config.json don't race each other on a read-modify-write.
+//
+// A Go sync.Mutex only protects goroutines within one process; instances
+// on the same host are separate processes, so this uses an OS-level
+// advisory file lock (flock) on a companion ".lock" file instead.
+//
+// Callers must, while still holding the lock: call ReadGCfg() to refresh
+// Global from disk, apply their change(s), then call WriteGCfg() — then
+// invoke the returned unlock func. Locking without refreshing first would
+// still silently drop a concurrent change made by another instance.
+func LockGCfg() (unlock func(), err error) {
+	lockPath := constants.CWGlobalConfig + ".lock"
+
+	f, err := os.OpenFile(lockPath, os.O_CREATE|os.O_RDWR, 0644)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := unix.Flock(int(f.Fd()), unix.LOCK_EX); err != nil {
+		f.Close()
+		return nil, err
+	}
+
+	return func() {
+		if err := unix.Flock(int(f.Fd()), unix.LOCK_UN); err != nil {
+			cwlog.DoLogCW("LockGCfg: unlock failed: " + err.Error())
+		}
+		f.Close()
+	}, nil
 }
 
 // WatchGCfg monitors the global configuration file for changes.

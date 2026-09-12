@@ -119,10 +119,6 @@ func GenerateFactorioConfig() bool {
 		descrLines = append(descrLines, AddFactColor("green", fmt.Sprintf("Direct connect: %v:%v", cfg.Global.Paths.URLs.Domain, cfg.Local.Port)))
 	}
 
-	if cfg.Global.Factorio.Username != "" {
-		descrLines = append(descrLines, "Server owner: "+cfg.Global.Factorio.Username)
-	}
-
 	if len(cfg.Global.Options.Description) > 0 {
 		gdesc := strings.Split(cfg.Global.Options.Description, "\n")
 		descrLines = append(descrLines, gdesc...)
@@ -144,7 +140,6 @@ func GenerateFactorioConfig() bool {
 		tags = append(tags, "Public")
 	}
 	tags = append(tags, cfg.Global.Paths.URLs.Domain)
-	tags = append(tags, "ChatWire")
 
 	normalMode := true
 	if *glob.LocalTestMode {

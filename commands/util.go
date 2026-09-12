@@ -110,10 +110,8 @@ func runSlashCommand(i *discordgo.InteractionCreate) {
 
 		for _, c := range cl {
 
-			/* Hanadle PrimaryOnly commands if we are the primary, otherwise only allow commands from our channel */
-			if !c.PrimaryOnly && !strings.EqualFold(i.ChannelID, cfg.Local.Channel.ChatChannel) && !c.Global {
-				continue
-			} else if c.PrimaryOnly && !strings.EqualFold(cfg.Local.Callsign, cfg.Global.PrimaryServer) {
+			/* Only allow commands from our own channel, unless marked Global */
+			if !c.Global && !strings.EqualFold(i.ChannelID, cfg.Local.Channel.ChatChannel) {
 				continue
 			}
 

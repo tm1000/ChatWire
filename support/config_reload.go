@@ -17,6 +17,13 @@ func ReloadConfigFiles(source string) {
 
 	cwlog.DoLogCW("Reloading config files (%s)...", source)
 
+	unlock, err := cfg.LockGCfg()
+	if err != nil {
+		cwlog.DoLogCW("Reload config failed: unable to lock global config: " + err.Error())
+		return
+	}
+	defer unlock()
+
 	if !cfg.ReadGCfg() {
 		cwlog.DoLogCW("Reload config failed: unable to read global config.")
 		return

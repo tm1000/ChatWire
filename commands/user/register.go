@@ -2,7 +2,6 @@ package user
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
@@ -61,12 +60,9 @@ func Register(cmd *glob.CommandData, i *discordgo.InteractionCreate) {
 	if didDelete {
 		buf = buf + "**NOTICE: Invalidating previous unused registration code.**\n"
 	}
-	buf = buf + fmt.Sprintf("1: Open **Factorio** and connect to: `%v-%v`\n", strings.ToUpper(cfg.Local.Callsign), cfg.Local.Name)
+	buf = buf + fmt.Sprintf("1: Open **Factorio** and connect to: `%v`\n", cfg.GetServerName())
 	buf = buf + "2: Copy/Paste or type this registration command and code **into Factorio:**\n"
 	buf = buf + fmt.Sprintf("`/register %v`\n", password)
-
-	//Help
-	buf = buf + fmt.Sprintf("\nTo find the server, you can search for `%v` in the **Factorio server browser.**\n", cfg.Global.GroupName)
 
 	msg, isConfigured := fact.MakeSteamURL()
 	if isConfigured {

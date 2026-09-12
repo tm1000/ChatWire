@@ -54,6 +54,13 @@ func RebootCW(cmd *glob.CommandData, i *discordgo.InteractionCreate) {
 /* Reload config files */
 func ReloadConfig(cmd *glob.CommandData, i *discordgo.InteractionCreate) {
 
+	unlock, err := cfg.LockGCfg()
+	if err != nil {
+		disc.InteractionEphemeralResponse(i, "Error:", "Unable to lock cw-global, check file permissions.")
+		return
+	}
+	defer unlock()
+
 	/* Read global and local configs */
 	if !cfg.ReadGCfg() {
 		buf := "Unable to reload global config file."

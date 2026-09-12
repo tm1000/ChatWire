@@ -14,6 +14,6 @@ func adminCommands() []glob.CommandData {
 			Description: "Settings that affect ALL servers.",
 			Type:        discordgo.ChatApplicationCommand,
 		},
-			Function: admin.GConfigServer, AdminOnly: true, PrimaryOnly: true},
+			Function: admin.GConfigServer, AdminOnly: true},
 	}
 }

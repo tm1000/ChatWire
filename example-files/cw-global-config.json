@@ -1,6 +1,5 @@
 {
 	"GroupName": "ZYX",
-	"PrimaryServer": "a",
 	"Discord": {
 		"Token": "discord_token",
 		"Guild": "guild_id",
