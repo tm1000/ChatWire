@@ -61,17 +61,6 @@ var GSettingList = []SettingListData{
 		MinStrLen: 2,
 		SData:     &cfg.Global.GroupName,
 	},
-	{
-		Name:      "primary-server",
-		ShortDesc: "Primary Server",
-		Desc:      "Specify a server callsign to handle all global commands.",
-		Type:      TYPE_STRING,
-
-		MaxStrLen: 2,
-		MinStrLen: 1,
-		SData:     &cfg.Global.PrimaryServer,
-	},
-
 	/* Discord */
 	{
 		Name:      "report-channel",
